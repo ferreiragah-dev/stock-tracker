@@ -1,45 +1,49 @@
 import { Router } from "express";
-import { preferences, stocks } from "../data/mock.js";
+import { supabase } from "../lib/supabase.js";
 
 const router = Router();
 
-router.get("/:userId", (req, res) => {
+router.get("/:userId", async (req, res) => {
   const { userId } = req.params;
-  const userPreferences = preferences.filter((pref) => pref.userId === userId);
+  const { data, error } = await supabase
+    .from("preferences")
+    .select("*")
+    .eq("user_id", userId);
 
-  return res.json({ data: userPreferences });
+  if (error) {
+    return res.status(500).json({ error: error.message });
+  }
+
+  return res.json({ data });
 });
 
-router.post("/:userId", (req, res) => {
+router.post("/:userId", async (req, res) => {
   const { userId } = req.params;
   const { stockId, isActive, emailAlertEnabled } = req.body;
 
-  const stock = stocks.find((item) => item.id === stockId);
-  if (!stock) {
-    return res.status(404).json({ error: "Stock not found." });
+  if (!stockId) {
+    return res.status(400).json({ error: "Stock id is required." });
   }
 
-  const existingPref = preferences.find(
-    (pref) => pref.userId === userId && pref.stockId === stockId
-  );
+  const { data, error } = await supabase
+    .from("preferences")
+    .upsert(
+      {
+        user_id: userId,
+        stock_id: stockId,
+        is_active: Boolean(isActive),
+        email_alert_enabled: Boolean(emailAlertEnabled)
+      },
+      { onConflict: "user_id,stock_id" }
+    )
+    .select("*")
+    .single();
 
-  if (existingPref) {
-    existingPref.isActive = Boolean(isActive);
-    existingPref.emailAlertEnabled = Boolean(emailAlertEnabled);
-    return res.json({ data: existingPref });
+  if (error) {
+    return res.status(400).json({ error: error.message });
   }
 
-  const newPreference = {
-    id: crypto.randomUUID(),
-    userId,
-    stockId,
-    isActive: Boolean(isActive),
-    emailAlertEnabled: Boolean(emailAlertEnabled),
-    createdAt: new Date().toISOString()
-  };
-
-  preferences.push(newPreference);
-  return res.status(201).json({ data: newPreference });
+  return res.status(201).json({ data });
 });
 
 export default router;
