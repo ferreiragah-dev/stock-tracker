@@ -11,8 +11,12 @@
       <div>
         <p class="eyebrow">Bem-vindo</p>
         <h1>Dashboard do usuário</h1>
+        <nav class="app-nav" aria-label="Seções principais">
+          <a class="nav-link active" href="index.html">Dashboard</a>
+          <a class="nav-link" href="alertas.html">Alertas</a>
+          <a class="nav-link" href="conta.html">Conta</a>
+        </nav>
       </div>
-      <button class="primary">Adicionar alerta</button>
     </header>
 
     <main>
@@ -105,64 +109,6 @@
             </div>
           </div>
         </article>
-      </section>
-
-      <section class="settings">
-        <div class="settings-header">
-          <div>
-            <h2>Preferências de alerta</h2>
-            <p class="muted">Selecione o que deseja monitorar e receber por e-mail.</p>
-          </div>
-          <label class="toggle">
-            <input type="checkbox" checked />
-            <span class="slider"></span>
-            <span class="toggle-label">Receber e-mails de alerta</span>
-          </label>
-        </div>
-
-        <div class="settings-grid">
-          <div class="settings-card">
-            <h3>PETR4</h3>
-            <label class="toggle small">
-              <input type="checkbox" checked />
-              <span class="slider"></span>
-              <span class="toggle-label">Monitorar</span>
-            </label>
-            <label class="toggle small">
-              <input type="checkbox" checked />
-              <span class="slider"></span>
-              <span class="toggle-label">Receber alertas</span>
-            </label>
-          </div>
-
-          <div class="settings-card">
-            <h3>VALE3</h3>
-            <label class="toggle small">
-              <input type="checkbox" checked />
-              <span class="slider"></span>
-              <span class="toggle-label">Monitorar</span>
-            </label>
-            <label class="toggle small">
-              <input type="checkbox" />
-              <span class="slider"></span>
-              <span class="toggle-label">Receber alertas</span>
-            </label>
-          </div>
-
-          <div class="settings-card">
-            <h3>ITUB4</h3>
-            <label class="toggle small">
-              <input type="checkbox" />
-              <span class="slider"></span>
-              <span class="toggle-label">Monitorar</span>
-            </label>
-            <label class="toggle small">
-              <input type="checkbox" />
-              <span class="slider"></span>
-              <span class="toggle-label">Receber alertas</span>
-            </label>
-          </div>
-        </div>
       </section>
     </main>
   </body>
