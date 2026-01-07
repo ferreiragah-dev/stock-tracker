@@ -8,6 +8,9 @@ router.post("/register", async (req, res) => {
   if (!name || !email || !password) {
     return res.status(400).json({ error: "Name, email, and password are required." });
   }
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    return res.status(500).json({ error: "Supabase service role key is missing." });
+  }
 
   const { data, error } = await supabase.auth.admin.createUser({
     email,
