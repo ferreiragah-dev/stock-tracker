@@ -1,1 +1,271 @@
+# Stock Tracker
 
+## Visão geral do produto
+
+Aplicativo para acompanhar ações da bolsa em tempo real (ou quase real), permitindo que cada usuário tenha um painel personalizado com apenas os ativos selecionados e receba alertas automáticos por e-mail conforme regras definidas.
+
+## Estrutura do projeto
+
+```
+backend/   API Express (mock)
+frontend/  Dashboard estático (HTML + CSS)
+```
+
+## Como rodar
+
+### Frontend
+
+Abra o arquivo `frontend/index.html` diretamente no navegador ou sirva com um servidor estático.
+
+```
+cd frontend
+python3 -m http.server 5173
+```
+
+### Backend
+
+```
+cd backend
+npm install
+cp .env.example .env
+npm run dev
+```
+
+A API ficará disponível em `http://localhost:4000`.
+
+## Principais funcionalidades
+
+- Cadastro e login de usuários.
+- Dashboard personalizado com cards de ações monitoradas.
+- Seleção de ações via toggle.
+- Ativação/desativação de alertas por e-mail (global e por ativo).
+- Sistema de alertas automatizado.
+- Preferências persistidas por usuário.
+
+## Arquitetura recomendada (high level)
+
+```
+Browser
+  ↓
+Frontend (React / Next / Vue)
+  ↓
+API Backend (Auth + Business Rules)
+  ↓
+Database (Users, Stocks, Preferences)
+  ↓
+Stock Market API
+  ↓
+Email Service
+```
+
+### Camadas
+
+- Frontend (Web App)
+- Backend (API + Auth + Regras)
+- Banco de Dados
+- Serviço de Dados Financeiros
+- Serviço de E-mail / Notificações
+- Job / Scheduler
+
+## Frontend (Web)
+
+### Stack sugerida
+
+- Framework: React + Next.js
+- UI: Tailwind / Material UI / Shadcn
+- State Management: Zustand ou Redux
+- Auth: JWT + Cookies HttpOnly
+- Charts: Recharts / Chart.js
+
+### Telas principais
+
+#### Cadastro
+
+Campos obrigatórios:
+
+- Nome
+- E-mail
+- Senha
+- Confirmação de senha
+
+Validações:
+
+- Força de senha
+- E-mail único
+- Confirmação de e-mail (opcional, recomendado)
+
+#### Login
+
+- E-mail
+- Senha
+- Remember me (opcional)
+
+#### Dashboard do usuário
+
+Componentes:
+
+- Header com nome do usuário
+- Grid de cards (ações selecionadas)
+- Indicadores:
+  - Preço atual
+  - Variação (%)
+  - Seta verde/vermelha
+  - Última atualização
+
+#### Painel de configurações
+
+- Lista de ações disponíveis
+- Cada ação com:
+  - Toggle “Monitorar”
+  - Toggle “Receber alertas”
+- Toggle global:
+  - “Receber e-mails de alerta”
+
+## Backend (API)
+
+### Stack sugerida
+
+- Node.js + NestJS ou
+- Node.js + Express ou
+- Java + Spring Boot
+
+Autenticação: JWT
+
+ORM: Prisma / TypeORM / Hibernate
+
+### Modelagem do banco de dados
+
+#### User
+
+- id (UUID)
+- name
+- email (unique)
+- password_hash
+- email_verified
+- created_at
+
+#### Stock
+
+- id
+- symbol (PETR4, VALE3, etc.)
+- name
+- exchange (B3)
+
+#### UserStockPreference
+
+- id
+- user_id
+- stock_id
+- is_active (monitorar)
+- email_alert_enabled
+- created_at
+
+#### AlertLog (opcional)
+
+- id
+- user_id
+- stock_id
+- alert_type
+- triggered_at
+- sent_email (boolean)
+
+## Autenticação e segurança
+
+### Autenticação
+
+- Login retorna JWT.
+- Token armazenado em cookie HttpOnly.
+- Middleware de proteção de rotas.
+
+### Segurança
+
+- Senhas com bcrypt / argon2.
+- Rate limit no login.
+- Proteção contra brute force.
+- CORS bem definido.
+- Validação de payloads (DTOs).
+
+## Integração com dados da bolsa
+
+### Fonte de dados
+
+APIs possíveis:
+
+- B3
+- Alpha Vantage
+- Twelve Data
+- Polygon
+- Yahoo Finance (não oficial)
+
+### Estratégia
+
+- Backend consome API externa.
+- Cache de preços (Redis recomendado).
+- Atualização a cada X minutos.
+
+## Sistema de alertas
+
+### Regras possíveis
+
+- Variação diária > X%.
+- Queda maior que X%.
+- Preço acima/abaixo de valor definido.
+- Maior alta do dia.
+- Maior queda do dia.
+
+### Fluxo do alerta
+
+```
+Scheduler (cron / worker)
+  ↓
+Busca ações monitoradas
+  ↓
+Calcula variação
+  ↓
+Verifica regras
+  ↓
+Verifica se usuário aceita email
+  ↓
+Envia email
+  ↓
+Registra log
+```
+
+## Envio de e-mails
+
+### Serviços recomendados
+
+- SendGrid
+- Amazon SES
+- Resend
+- SMTP próprio (menos recomendado)
+
+### Boas práticas
+
+- Templates HTML responsivos.
+- Unsubscribe link.
+- Não enviar alertas duplicados.
+- Delay mínimo entre alertas iguais.
+
+## Performance e escalabilidade
+
+- Cache de preços (Redis).
+- Cache de preferências do usuário.
+- Jobs assíncronos (BullMQ, RabbitMQ).
+- Separar API pública e workers.
+- Limitar chamadas à API externa.
+
+## UX / UI boas práticas
+
+- Cards com cores claras (verde/vermelho).
+- Skeleton loading.
+- Feedback visual ao ativar toggle.
+- Empty state (nenhuma ação selecionada).
+- Dark mode (opcional, recomendado).
+
+## Logs e monitoramento
+
+- Logs de erro (Sentry).
+- Logs de alertas enviados.
+- Métricas de uso.
+- Health check da API.
