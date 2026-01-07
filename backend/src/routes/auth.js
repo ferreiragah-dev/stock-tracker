@@ -1,5 +1,4 @@
 import { Router } from "express";
-import bcrypt from "bcryptjs";
 import { supabase } from "../lib/supabase.js";
 
 const router = Router();
@@ -20,18 +19,6 @@ router.post("/register", async (req, res) => {
   if (error) {
     const status = error.status === 409 ? 409 : 400;
     return res.status(status).json({ error: error.message });
-  }
-
-  const passwordHash = await bcrypt.hash(password, 10);
-  const { error: profileError } = await supabase.from("profiles").insert({
-    id: data.user.id,
-    name,
-    email,
-    password_hash: passwordHash
-  });
-
-  if (profileError) {
-    return res.status(500).json({ error: profileError.message });
   }
 
   return res.status(201).json({
