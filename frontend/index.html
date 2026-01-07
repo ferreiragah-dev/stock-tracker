@@ -11,157 +11,35 @@
       <div>
         <p class="eyebrow">Bem-vindo</p>
         <h1>Dashboard do usuário</h1>
+        <nav class="app-nav" aria-label="Seções principais">
+          <a class="nav-link active" href="index.html">Dashboard</a>
+          <a class="nav-link" href="alertas.html">Alertas</a>
+          <a class="nav-link" href="conta.html">Conta</a>
+        </nav>
       </div>
-      <button class="primary">Adicionar alerta</button>
     </header>
 
     <main>
-      <section class="grid">
-        <article class="card">
-          <div class="card-content">
-            <div>
-              <header>
-                <h2>PETR4</h2>
-                <span class="tag success">+1,24%</span>
-              </header>
-              <p class="price">R$ 32,10</p>
-              <p class="muted">Última atualização há 2 min</p>
-            </div>
-            <div class="card-visual">
-              <svg class="sparkline up" viewBox="0 0 120 40" aria-hidden="true">
-                <defs>
-                  <linearGradient id="sparkUp" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#22c55e" stop-opacity="0.35" />
-                    <stop offset="100%" stop-color="#22c55e" stop-opacity="0" />
-                  </linearGradient>
-                </defs>
-                <path
-                  class="sparkline-area"
-                  d="M0 30 L15 28 L30 26 L45 22 L60 24 L75 18 L90 14 L105 10 L120 8 L120 40 L0 40 Z"
-                  fill="url(#sparkUp)"
-                />
-                <path
-                  class="sparkline-line"
-                  d="M0 30 L15 28 L30 26 L45 22 L60 24 L75 18 L90 14 L105 10 L120 8"
-                />
-              </svg>
-            </div>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-content">
-            <div>
-              <header>
-                <h2>VALE3</h2>
-                <span class="tag danger">-0,74%</span>
-              </header>
-              <p class="price">R$ 68,42</p>
-              <p class="muted">Última atualização há 3 min</p>
-            </div>
-            <div class="card-visual">
-              <svg class="sparkline down" viewBox="0 0 120 40" aria-hidden="true">
-                <defs>
-                  <linearGradient id="sparkDown" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stop-color="#ef4444" stop-opacity="0.35" />
-                    <stop offset="100%" stop-color="#ef4444" stop-opacity="0" />
-                  </linearGradient>
-                </defs>
-                <path
-                  class="sparkline-area"
-                  d="M0 10 L15 12 L30 14 L45 16 L60 20 L75 22 L90 26 L105 30 L120 32 L120 40 L0 40 Z"
-                  fill="url(#sparkDown)"
-                />
-                <path
-                  class="sparkline-line"
-                  d="M0 10 L15 12 L30 14 L45 16 L60 20 L75 22 L90 26 L105 30 L120 32"
-                />
-              </svg>
-            </div>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-content">
-            <div>
-              <header>
-                <h2>ITUB4</h2>
-                <span class="tag success">+0,58%</span>
-              </header>
-              <p class="price">R$ 28,91</p>
-              <p class="muted">Última atualização há 1 min</p>
-            </div>
-            <div class="card-visual">
-              <svg class="sparkline up" viewBox="0 0 120 40" aria-hidden="true">
-                <path
-                  class="sparkline-area"
-                  d="M0 26 L15 24 L30 25 L45 20 L60 22 L75 18 L90 20 L105 16 L120 12 L120 40 L0 40 Z"
-                />
-                <path
-                  class="sparkline-line"
-                  d="M0 26 L15 24 L30 25 L45 20 L60 22 L75 18 L90 20 L105 16 L120 12"
-                />
-              </svg>
-            </div>
-          </div>
-        </article>
-      </section>
-
-      <section class="settings">
-        <div class="settings-header">
+      <section class="dashboard">
+        <div class="dashboard-header">
           <div>
-            <h2>Preferências de alerta</h2>
-            <p class="muted">Selecione o que deseja monitorar e receber por e-mail.</p>
+            <h2>Ações rápidas</h2>
+            <p class="muted">Atalhos para as ações principais do seu painel.</p>
           </div>
-          <label class="toggle">
-            <input type="checkbox" checked />
-            <span class="slider"></span>
-            <span class="toggle-label">Receber e-mails de alerta</span>
-          </label>
         </div>
-
-        <div class="settings-grid">
-          <div class="settings-card">
-            <h3>PETR4</h3>
-            <label class="toggle small">
-              <input type="checkbox" checked />
-              <span class="slider"></span>
-              <span class="toggle-label">Monitorar</span>
-            </label>
-            <label class="toggle small">
-              <input type="checkbox" checked />
-              <span class="slider"></span>
-              <span class="toggle-label">Receber alertas</span>
-            </label>
-          </div>
-
-          <div class="settings-card">
-            <h3>VALE3</h3>
-            <label class="toggle small">
-              <input type="checkbox" checked />
-              <span class="slider"></span>
-              <span class="toggle-label">Monitorar</span>
-            </label>
-            <label class="toggle small">
-              <input type="checkbox" />
-              <span class="slider"></span>
-              <span class="toggle-label">Receber alertas</span>
-            </label>
-          </div>
-
-          <div class="settings-card">
-            <h3>ITUB4</h3>
-            <label class="toggle small">
-              <input type="checkbox" />
-              <span class="slider"></span>
-              <span class="toggle-label">Monitorar</span>
-            </label>
-            <label class="toggle small">
-              <input type="checkbox" />
-              <span class="slider"></span>
-              <span class="toggle-label">Receber alertas</span>
-            </label>
-          </div>
+        <div class="action-grid">
+          <a class="action-card" href="alertas.html">
+            <span class="action-title">Adicionar alerta</span>
+            <span class="muted">Crie um novo alerta para ativos.</span>
+          </a>
+          <a class="action-card" href="alertas.html">
+            <span class="action-title">Ver alertas</span>
+            <span class="muted">Acompanhe seus alertas ativos.</span>
+          </a>
+          <a class="action-card" href="conta.html">
+            <span class="action-title">Gerenciar conta</span>
+            <span class="muted">Atualize nome, e-mail e senha.</span>
+          </a>
         </div>
       </section>
     </main>

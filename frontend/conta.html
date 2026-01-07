@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conta - Stock Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Bem-vindo</p>
+        <h1>Conta do usuário</h1>
+        <nav class="app-nav" aria-label="Seções principais">
+          <a class="nav-link" href="index.html">Dashboard</a>
+          <a class="nav-link" href="alertas.html">Alertas</a>
+          <a class="nav-link active" href="conta.html">Conta</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="account">
+        <div class="account-header">
+          <div>
+            <h2>Conta</h2>
+            <p class="muted">
+              Gerencie seus dados pessoais, atualize nome, e-mail, senha e adicione seu número do
+              WhatsApp.
+            </p>
+          </div>
+          <button class="primary secondary">Salvar alterações</button>
+        </div>
+
+        <form class="account-form">
+          <label class="field">
+            Nome completo
+            <input type="text" value="Mariana Souza" />
+          </label>
+          <label class="field">
+            E-mail
+            <input type="email" value="mariana@exemplo.com" />
+          </label>
+          <label class="field">
+            Nova senha
+            <input type="password" placeholder="Digite uma nova senha" />
+          </label>
+          <label class="field">
+            Número do WhatsApp
+            <input type="tel" value="+55 (11) 91234-5678" />
+          </label>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>
