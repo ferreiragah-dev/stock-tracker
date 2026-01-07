@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stock Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Bem-vindo</p>
+        <h1>Dashboard do usuário</h1>
+      </div>
+      <button class="primary">Adicionar alerta</button>
+    </header>
+
+    <main>
+      <section class="grid">
+        <article class="card">
+          <header>
+            <h2>PETR4</h2>
+            <span class="tag success">+1,24%</span>
+          </header>
+          <p class="price">R$ 32,10</p>
+          <p class="muted">Última atualização há 2 min</p>
+        </article>
+
+        <article class="card">
+          <header>
+            <h2>VALE3</h2>
+            <span class="tag danger">-0,74%</span>
+          </header>
+          <p class="price">R$ 68,42</p>
+          <p class="muted">Última atualização há 3 min</p>
+        </article>
+
+        <article class="card">
+          <header>
+            <h2>ITUB4</h2>
+            <span class="tag success">+0,58%</span>
+          </header>
+          <p class="price">R$ 28,91</p>
+          <p class="muted">Última atualização há 1 min</p>
+        </article>
+      </section>
+
+      <section class="settings">
+        <div class="settings-header">
+          <div>
+            <h2>Preferências de alerta</h2>
+            <p class="muted">Selecione o que deseja monitorar e receber por e-mail.</p>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" checked />
+            <span class="slider"></span>
+            <span class="toggle-label">Receber e-mails de alerta</span>
+          </label>
+        </div>
+
+        <div class="settings-grid">
+          <div class="settings-card">
+            <h3>PETR4</h3>
+            <label class="toggle small">
+              <input type="checkbox" checked />
+              <span class="slider"></span>
+              <span class="toggle-label">Monitorar</span>
+            </label>
+            <label class="toggle small">
+              <input type="checkbox" checked />
+              <span class="slider"></span>
+              <span class="toggle-label">Receber alertas</span>
+            </label>
+          </div>
+
+          <div class="settings-card">
+            <h3>VALE3</h3>
+            <label class="toggle small">
+              <input type="checkbox" checked />
+              <span class="slider"></span>
+              <span class="toggle-label">Monitorar</span>
+            </label>
+            <label class="toggle small">
+              <input type="checkbox" />
+              <span class="slider"></span>
+              <span class="toggle-label">Receber alertas</span>
+            </label>
+          </div>
+
+          <div class="settings-card">
+            <h3>ITUB4</h3>
+            <label class="toggle small">
+              <input type="checkbox" />
+              <span class="slider"></span>
+              <span class="toggle-label">Monitorar</span>
+            </label>
+            <label class="toggle small">
+              <input type="checkbox" />
+              <span class="slider"></span>
+              <span class="toggle-label">Receber alertas</span>
+            </label>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
