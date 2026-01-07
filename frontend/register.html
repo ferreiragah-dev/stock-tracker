@@ -25,28 +25,29 @@
           <span class="tag success">Gratuito</span>
         </div>
 
-        <form class="auth-form">
+        <form class="auth-form" id="register-form">
           <label class="field">
             <span>Nome completo</span>
-            <input type="text" placeholder="Seu nome" required />
+            <input id="register-name" type="text" placeholder="Seu nome" required />
           </label>
           <label class="field">
             <span>E-mail</span>
-            <input type="email" placeholder="nome@empresa.com" required />
+            <input id="register-email" type="email" placeholder="nome@empresa.com" required />
           </label>
           <label class="field">
             <span>Senha</span>
-            <input type="password" placeholder="Crie uma senha forte" required />
+            <input id="register-password" type="password" placeholder="Crie uma senha forte" required />
           </label>
           <label class="field">
             <span>Confirmar senha</span>
-            <input type="password" placeholder="Repita sua senha" required />
+            <input id="register-confirm" type="password" placeholder="Repita sua senha" required />
           </label>
           <label class="toggle small remember">
             <input type="checkbox" checked />
             <span class="slider"></span>
             <span class="toggle-label">Aceito receber alertas e novidades</span>
           </label>
+          <p class="muted" id="register-feedback" role="alert" aria-live="polite"></p>
           <button class="primary auth-submit" type="submit">Criar conta</button>
         </form>
 
@@ -56,5 +57,57 @@
         </p>
       </section>
     </main>
+    <script>
+      const form = document.querySelector("#register-form");
+      const feedback = document.querySelector("#register-feedback");
+      const nameInput = document.querySelector("#register-name");
+      const emailInput = document.querySelector("#register-email");
+      const passwordInput = document.querySelector("#register-password");
+      const confirmInput = document.querySelector("#register-confirm");
+
+      const setFeedback = (message, isError = false) => {
+        feedback.textContent = message;
+        feedback.style.color = isError ? "#f15b5b" : "#7ce7ac";
+      };
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        setFeedback("");
+
+        if (passwordInput.value !== confirmInput.value) {
+          setFeedback("As senhas não conferem. Verifique e tente novamente.", true);
+          return;
+        }
+
+        const payload = {
+          name: nameInput.value.trim(),
+          email: emailInput.value.trim(),
+          password: passwordInput.value
+        };
+
+        if (!payload.name || !payload.email || !payload.password) {
+          setFeedback("Preencha todos os campos obrigatórios.", true);
+          return;
+        }
+
+        try {
+          const response = await fetch("/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await response.json();
+          if (!response.ok) {
+            throw new Error(data.error || "Não foi possível concluir o cadastro.");
+          }
+
+          setFeedback("Cadastro concluído! Você já pode fazer login.");
+          form.reset();
+        } catch (error) {
+          setFeedback(error.message, true);
+        }
+      });
+    </script>
   </body>
 </html>
